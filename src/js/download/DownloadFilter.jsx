@@ -3,6 +3,7 @@ import MonthPicker from "react-month-picker";
 import DayPickerInput from "react-day-picker/DayPickerInput";
 import { ChevronDown, ChevronUp } from "react-feather";
 import { formatDate, parseDate } from "react-day-picker/moment";
+import { mapDate } from "../util/";
 import { MONTHS } from "../../constants/util";
 
 import "react-month-picker/css/month-picker.css";
@@ -37,23 +38,19 @@ class DownloadFilter extends Component {
   }
 
   getFilters(user, from, to, uploadBy, uploadDate) {
+    const toDefaultDate = new Date();
     return {
       user: user !== null ? user : this.state.user,
       timePeriod: {
-        from: from === null ? "" : from,
-        to: to === null ? "" : to
+        from: from === null ? { year: 0, month: 0 } : from,
+        to:
+          to === null
+            ? { year: toDefaultDate.getFullYear(), month: toDefaultDate.getMonth() + 1 }
+            : to
       },
       uploadedBy: uploadBy !== null ? uploadBy : this.state.uploadBy,
       uploadDate: uploadDate === null ? "" : formatDate(uploadDate, "DD/MM/YYYY")
     };
-  }
-
-  mapDate(date) {
-    if (date) {
-      const { year, month } = date;
-      return `${MONTHS[month - 1]}/${year}`;
-    }
-    return "";
   }
 
   handleFilterViewChange() {
@@ -223,7 +220,7 @@ class DownloadFilter extends Component {
                       type="text"
                       placeholder="From"
                       onFocus={this.showFromDate}
-                      value={this.mapDate(this.state.timePeriod.from)}
+                      value={mapDate(this.state.timePeriod.from)}
                       readOnly
                     />
                   </MonthPicker>
@@ -240,7 +237,7 @@ class DownloadFilter extends Component {
                       type="text"
                       placeholder="To"
                       onFocus={this.showToDate}
-                      value={this.mapDate(this.state.timePeriod.to)}
+                      value={mapDate(this.state.timePeriod.to)}
                       readOnly
                     />
                   </MonthPicker>

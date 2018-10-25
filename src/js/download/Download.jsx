@@ -6,6 +6,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import DownloadFilter from "./DownloadFilter";
+import { mapDate } from "../util/";
 
 import "../../css/download.css";
 
@@ -44,7 +45,16 @@ class Download extends Component {
       timePeriod;
     for (let i = 0; i < 100; i++) {
       user = i < 50 ? "riscen" : "raul";
-      timePeriod = i % 2 === 0 ? "Sep/2018 to Oct/2018" : "Oct/2018 to Nov/2018";
+      timePeriod = {
+        from: {
+          year: 2018,
+          month: i % 2 ? 9 : 10
+        },
+        to: {
+          year: 2018,
+          month: i % 2 ? 10 : 11
+        }
+      };
 
       files = [
         ...files,
@@ -70,11 +80,18 @@ class Download extends Component {
     let marginTop = {
       marginTop: "2%"
     };
+    const filters = this.state.filters;
     const filteredFiles = this.state.files.filter(file => {
       if (
-        file.username.includes(this.state.filters.user) &&
-        file.uploadedBy.includes(this.state.filters.uploadedBy) &&
-        file.uploadDate.includes(this.state.filters.uploadDate)
+        file.username.includes(filters.user) &&
+        (file.timePeriod.from.year > filters.timePeriod.from.year ||
+          (file.timePeriod.from.year === filters.timePeriod.from.year &&
+            file.timePeriod.from.month >= filters.timePeriod.from.month)) &&
+        (file.timePeriod.to.year < filters.timePeriod.to.year ||
+          (file.timePeriod.to.year === filters.timePeriod.to.year &&
+            file.timePeriod.to.month <= filters.timePeriod.to.month)) &&
+        file.uploadedBy.includes(filters.uploadedBy) &&
+        file.uploadDate.includes(filters.uploadDate)
       )
         return file;
     });
@@ -87,7 +104,7 @@ class Download extends Component {
           onDoubleClick={f => this.downloadFile(file)}
         >
           <td>{file.username}</td>
-          <td>{file.timePeriod}</td>
+          <td>{`${mapDate(file.timePeriod.from)} to ${mapDate(file.timePeriod.to)}`}</td>
           <td>{file.uploadedBy}</td>
           <td>{file.uploadDate}</td>
         </tr>
