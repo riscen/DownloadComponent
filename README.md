@@ -1,2 +1,0 @@
-# DownloadComponent
-Created with CodeSandbox

@@ -1,0 +1,153 @@
+@charset "UTF-8";
+.download-description {
+  width: 100%;
+}
+
+.el-inline {
+  display: inline-block;
+}
+
+/*********************Download filters**********************/
+.download-filter {
+  transition: 0.2s;
+  width: 100%;
+  height: 30px;
+  text-align: center;
+  border: 1px solid #dbdbdb;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.download-filter.active {
+  transition: 0.2s;
+  height: 90px;
+}
+
+.download-filter-title {
+  font-size: 16px;
+  height: 30px;
+  cursor: pointer;
+  width: 100%;
+  margin: auto;
+  border-bottom: 2px solid #dbdbdb;
+}
+
+.download-filter-title:hover {
+  color: #007bff;
+}
+
+.download-filter-container {
+  width: 100%;
+  height: 0;
+  text-align: left;
+}
+
+.download-filter-container.close {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.download-filter-container.open {
+  visibility: visible;
+  opacity: 1;
+}
+
+.download-filter-field-container {
+  float: left;
+  height: 58px;
+  padding: 5px;
+}
+
+.download-filter-user-container {
+  width: 22%;
+  border-right: 1px solid #dbdbdb;
+}
+
+.download-filter-label {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.download-filter-input-field {
+  width: 100%;
+}
+
+.DayPickerInput input {
+  width: 100%;
+}
+
+.download-filter-time-period-container {
+  width: 34%;
+  border-right: 1px solid #dbdbdb;
+}
+
+.InputFromTo {
+  width: 100%;
+}
+
+.download-from-date {
+  width: 50%;
+}
+
+.download-to-date {
+  width: 50%;
+}
+
+.month-picker {
+  width: 100%;
+}
+
+.InputFromTo input {
+  width: 95%;
+}
+
+.download-filter-from {
+  width: 100%;
+}
+
+.download-filter-uploaded-by-container {
+  width: 22%;
+  border-right: 1px solid #dbdbdb;
+}
+
+.download-filter-upload-date-container {
+  width: 22%;
+}
+
+.DayPickerInput {
+  width: 100%;
+}
+
+/***********************File table************************/
+.file-download-table {
+  padding: 10px 0 5% 0;
+}
+
+.table-bordered {
+  width: 100%;
+}
+
+thead {
+  background: #f8f9fa;
+  color: #212529;
+}
+
+.table-bordered tr {
+  height: 40px;
+}
+
+.table-bordered th,
+td {
+  padding: 5px;
+}
+
+.table-bordered .file-download-table-row {
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.table-bordered .file-download-table-row:hover {
+  transition: 0.2s;
+  background: #007bff;
+  color: white;
+}
