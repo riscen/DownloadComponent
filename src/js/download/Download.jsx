@@ -42,15 +42,15 @@ class Download extends Component {
     let files = [],
       user,
       timePeriod;
-    for (let i = 0; i < 10; i++) {
-      user = i < 5 ? "riscen" : "raul";
+    for (let i = 0; i < 100; i++) {
+      user = i < 50 ? "riscen" : "raul";
       timePeriod = i % 2 === 0 ? "Sep/2018 to Oct/2018" : "Oct/2018 to Nov/2018";
 
       files = [
         ...files,
         {
           id: i,
-          username: "user" + i,
+          username: "user" + Math.floor(i / 10),
           timePeriod: timePeriod,
           uploadedBy: user,
           uploadDate: "22/10/2018"

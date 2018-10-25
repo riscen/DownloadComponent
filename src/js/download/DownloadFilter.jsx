@@ -36,10 +36,13 @@ class DownloadFilter extends Component {
     this.handleDateChange = this.handleDateChange.bind(this);
   }
 
-  getFilters(user, uploadBy, uploadDate) {
-    console.log("UD; ", uploadDate);
+  getFilters(user, from, to, uploadBy, uploadDate) {
     return {
       user: user !== null ? user : this.state.user,
+      timePeriod: {
+        from: from === null ? "" : from,
+        to: to === null ? "" : to
+      },
       uploadedBy: uploadBy !== null ? uploadBy : this.state.uploadBy,
       uploadDate: uploadDate === null ? "" : formatDate(uploadDate, "DD/MM/YYYY")
     };
@@ -69,7 +72,7 @@ class DownloadFilter extends Component {
           showFromDate: false,
           showToDate: false
         },
-        () => this.props.handleFilterDataChange(this.getFilters(null, null, null))
+        () => this.props.handleFilterDataChange(this.getFilters(null, null, null, null, null))
       );
       growDiv.style.height = 0;
     } else {
@@ -88,6 +91,8 @@ class DownloadFilter extends Component {
     this.props.handleFilterDataChange(
       this.getFilters(
         event.target.name === "user" ? event.target.value : null,
+        this.state.timePeriod.from,
+        this.state.timePeriod.to,
         event.target.name === "uploadBy" ? event.target.value : null,
         this.state.uploadDate
       )
@@ -95,7 +100,6 @@ class DownloadFilter extends Component {
   }
 
   handleFromDateChange(year, month) {
-    console.log(year, MONTHS[month - 1]);
     this.hideFromDate();
     this.setState({
       timePeriod: {
@@ -103,10 +107,18 @@ class DownloadFilter extends Component {
         to: this.state.timePeriod.to
       }
     });
+    this.props.handleFilterDataChange(
+      this.getFilters(
+        null,
+        { year: year, month: month },
+        this.state.timePeriod.to,
+        null,
+        this.state.uploadDate
+      )
+    );
   }
 
   handleToDateChange(year, month) {
-    console.log(year, MONTHS[month - 1]);
     this.hideToDate();
     this.setState({
       timePeriod: {
@@ -114,13 +126,24 @@ class DownloadFilter extends Component {
         to: { year: year, month: month }
       }
     });
+    this.props.handleFilterDataChange(
+      this.getFilters(
+        null,
+        this.state.timePeriod.from,
+        { year: year, month: month },
+        null,
+        this.state.uploadDate
+      )
+    );
   }
 
   handleDateChange(date) {
     this.setState({
       uploadDate: date
     });
-    this.props.handleFilterDataChange(this.getFilters(null, null, date));
+    this.props.handleFilterDataChange(
+      this.getFilters(null, this.state.timePeriod.from, this.state.timePeriod.to, null, date)
+    );
   }
 
   showFromDate() {
@@ -150,7 +173,7 @@ class DownloadFilter extends Component {
   }
 
   componentDidMount() {
-    this.props.handleFilterDataChange(this.getFilters(null, null, null));
+    this.props.handleFilterDataChange(this.getFilters(null, null, null, null, null));
   }
 
   render() {
@@ -193,7 +216,7 @@ class DownloadFilter extends Component {
                     show={this.state.showFromDate}
                     years={yearRange}
                     value={valueFromDate}
-                    lang={this.months}
+                    lang={MONTHS}
                     onChange={this.handleFromDateChange}
                   >
                     <input
@@ -210,7 +233,7 @@ class DownloadFilter extends Component {
                     show={this.state.showToDate}
                     years={yearRange}
                     value={valueToDate}
-                    lang={this.months}
+                    lang={MONTHS}
                     onChange={this.handleToDateChange}
                   >
                     <input
