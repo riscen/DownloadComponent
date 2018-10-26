@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import UploadHourFile from "./UploadHourFile";
 
 class Upload extends Component {
   constructor() {
@@ -14,7 +15,8 @@ class Upload extends Component {
 
   handleFileSelect(evt) {
     evt.preventDefault();
-    debugger;
+    console.log("Called");
+    //debugger;
     if (window.File && window.FileReader && window.FileList && window.Blob) {
       var files = evt.target.files; // FileList object
       var control = this.g("getPath");
@@ -46,7 +48,10 @@ class Upload extends Component {
       <div className="container-fluid">
         <h1 className="h2">Upload file</h1>
         <div className="row">
-          <div className="col-sm-12 d-none d-md-block" style={marginTop}>
+          <div className="col-sm-6 d-none d-md-block" style={marginTop}>
+            <UploadHourFile handleFileSelect={this.handleFileSelect} />
+          </div>
+          <div className="upload-uf-container col-sm-6 d-none d-md-block" style={marginTop}>
             <label htmlFor="getPath">Select the file</label>
             <br />
             <input

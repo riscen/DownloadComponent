@@ -33,7 +33,6 @@ class Download extends Component {
   }
 
   handleFilterDataChange(filters) {
-    console.log(filters);
     this.setState({
       filters: filters
     });

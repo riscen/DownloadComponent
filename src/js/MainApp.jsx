@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 //import { Link } from 'react-router-dom';
 
-import Upload from "./Upload"; //All of us
+import Upload from "./upload/Upload"; //All of us
 import Download from "./download/Download"; //Raul
 import Consult from "./Charts"; //Lalo
 //import Loggin from './SignInForm';//Fer
@@ -85,7 +85,7 @@ class MainApp extends Component {
                     <a
                       className="nav-link active"
                       id="aUpload"
-                      href="#top"
+                      href="#"
                       onClick={this.navBetweenTabs}
                     >
                       <span data-feather="home" />

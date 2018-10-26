@@ -38,15 +38,12 @@ class DownloadFilter extends Component {
   }
 
   getFilters(user, from, to, uploadBy, uploadDate) {
-    const toDefaultDate = new Date();
+    const defaultYear = new Date().getFullYear();
     return {
       user: user !== null ? user : this.state.user,
       timePeriod: {
         from: from === null ? { year: 0, month: 0 } : from,
-        to:
-          to === null
-            ? { year: toDefaultDate.getFullYear(), month: toDefaultDate.getMonth() + 1 }
-            : to
+        to: to === null ? { year: defaultYear, month: 11 } : to
       },
       uploadedBy: uploadBy !== null ? uploadBy : this.state.uploadBy,
       uploadDate: uploadDate === null ? "" : formatDate(uploadDate, "DD/MM/YYYY")
