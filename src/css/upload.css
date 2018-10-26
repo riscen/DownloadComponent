@@ -84,7 +84,7 @@
   padding-top: 1%;
 }
 
-.upload-grow {
+.upload-hf-grow {
   -moz-transition: height 0.5s;
   -ms-transition: height 0.5s;
   -o-transition: height 0.5s;
@@ -161,8 +161,7 @@
 /*******************UploadUserFile****************/
 .upload-uf-container {
   width: 100%;
-  cursor: pointer;
-  padding: 0 10% 10% 0;
+  margin-right: 5%;
   border: 1px solid #dbdbdb;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
@@ -174,4 +173,48 @@
   padding: 1% 2% 2% 2%;
   border-bottom: 2px solid #dbdbdb;
   cursor: pointer;
+}
+
+.upload-uf-title-container:hover {
+  color: #007bff;
+}
+
+.upload-uf-title {
+  font-size: 25px;
+}
+
+.upload-uf-title .upload-uf-title-name {
+  font-size: 22px;
+}
+
+.upload-uf-title-icon {
+  float: right;
+  padding-top: 1%;
+}
+
+.upload-uf-grow {
+  -moz-transition: height 0.5s;
+  -ms-transition: height 0.5s;
+  -o-transition: height 0.5s;
+  -webkit-transition: height 0.5s;
+  transition: height 0.5s;
+  height: 0;
+  overflow: hidden;
+}
+
+.upload-uf-props-container {
+  height: 205px;
+  width: 100%;
+}
+
+.upload-uf-table-container {
+  padding: 3%;
+}
+
+.upload-uf-table {
+  width: 100%;
+}
+
+.upload-uf-no-cell {
+  width: 15%;
 }

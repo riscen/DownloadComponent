@@ -4,19 +4,20 @@ import { ChevronDown, ChevronUp } from "react-feather";
 
 import "../../css/upload.css";
 
-class UploadHourFile extends Component {
+class UploadUserFile extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      showControls: false
+      showControls: false,
+      files: []
     };
 
     this.handleShowControls = this.handleShowControls.bind(this);
   }
 
   handleShowControls() {
-    const growDiv = document.getElementsByClassName("upload-hf-grow")[0];
+    const growDiv = document.getElementsByClassName("upload-uf-grow")[0];
     growDiv.style.height = growDiv.clientHeight
       ? 0
       : document.querySelector(".upload-props-container").clientHeight + "px";
@@ -25,36 +26,28 @@ class UploadHourFile extends Component {
     });
   }
 
+  componentDidMount() {
+    let files = [];
+    for (let i = 0; i < 10; i++) {
+      files = [...files, "test" + i + ".txt"];
+    }
+  }
+
   render() {
     return (
-      <div className="upload-hf-container">
-        <div className="upload-hf-title-container" onClick={this.handleShowControls}>
-          <span className="upload-hf-title">User files:</span>
-          <span className="upload-hf-title-icon">
+      <div className="upload-uf-container">
+        <div className="upload-uf-title-container" onClick={this.handleShowControls}>
+          <span className="upload-uf-title">
+            Hour file: <span className="upload-uf-title-name">file.txt</span>
+          </span>
+          <span className="upload-uf-title-icon">
             {this.state.showControls ? <ChevronUp /> : <ChevronDown />}
           </span>
         </div>
-        <div className="upload-hf-grow">
-          <div className="upload-props-container">
-            <div className="upload-hf-dates">
-              <h6>Dates</h6>
-              <div className="upload-hf-date upload-hf-date-u">
-                <span>Upload:</span>{" "}
-                <input className="upload-hf-date-in" type="text" placeholder="Upload" readOnly />
-              </div>
-              <div className="upload-hf-date">
-                <span>Expiration:</span>{" "}
-                <input
-                  className="upload-hf-date-in"
-                  type="text"
-                  placeholder="Expiration"
-                  readOnly
-                />
-              </div>
-            </div>
-
+        <div className="upload-uf-grow">
+          <div className="upload-uf-props-container">
             <div className="upload-input-text">
-              <h6>Choose file</h6>
+              <h6>Choose files</h6>
               <div className="upload-input-file">
                 <input
                   className="upload-input-file-url"
@@ -63,6 +56,17 @@ class UploadHourFile extends Component {
                   readOnly
                 />
               </div>
+            </div>
+
+            <div className="upload-uf-table-container">
+              <table className="upload-uf-table table-bordered">
+                <thead>
+                  <tr>
+                    <th className="upload-uf-no-cell">No.</th>
+                    <th>File url</th>
+                  </tr>
+                </thead>
+              </table>
             </div>
 
             <div className="upload-control-button">
@@ -88,8 +92,8 @@ class UploadHourFile extends Component {
   }
 }
 
-UploadHourFile.propTypes = {
+UploadUserFile.propTypes = {
   handleFileSelect: PropTypes.any
 };
 
-export default UploadHourFile;
+export default UploadUserFile;

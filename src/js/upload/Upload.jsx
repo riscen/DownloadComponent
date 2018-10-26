@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import UploadHourFile from "./UploadHourFile";
+import UploadUserFile from "./UploadUserFile";
 
 class Upload extends Component {
   constructor() {
@@ -51,8 +52,9 @@ class Upload extends Component {
           <div className="col-sm-6 d-none d-md-block" style={marginTop}>
             <UploadHourFile handleFileSelect={this.handleFileSelect} />
           </div>
-          <div className="upload-uf-container col-sm-6 d-none d-md-block" style={marginTop}>
-            <label htmlFor="getPath">Select the file</label>
+          <div className="col-sm-6 d-none d-md-block" style={marginTop}>
+            <UploadUserFile handleFileSelect={this.handleFileSelect} />
+            {/*<label htmlFor="getPath">Select the file</label>
             <br />
             <input
               type="file"
