@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 //import { Link } from 'react-router-dom';
+import { Calendar as CalendarIcon } from "react-feather";
 import Upload from "./upload/Upload"; //All of us
 import Download from "./download/Download"; //Raul
 import Calendar from "./calendar/Calendar";
@@ -27,7 +28,6 @@ class MainApp extends Component {
     this.g("aUpload").classList.remove("active");
     this.g("aDownload").classList.remove("active");
     this.g("aConsult").classList.remove("active");
-    this.g("aCalendar").classList.remove("active");
     this.g("aSecurity").classList.remove("active");
     switch (event.target.id) {
       case "aUpload": //UploadFile
@@ -108,7 +108,10 @@ class MainApp extends Component {
 
                   <li className="nav-item">
                     <a className="nav-link" href="#" id="aCalendar" onClick={this.navBetweenTabs}>
-                      <span data-feather="calendar"> </span> Calendar
+                      <span>
+                        <CalendarIcon />
+                      </span>
+                      Calendar
                     </a>
                   </li>
 

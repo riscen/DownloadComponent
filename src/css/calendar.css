@@ -1,0 +1,87 @@
+.calendar-container {
+  height: 90vh;
+}
+
+.calendar-title {
+  height: 90px;
+  border-bottom: 1px solid #dbdbdb;
+}
+
+.calendar-user-data {
+  float: left;
+}
+
+.calendar-time {
+  float: right;
+  text-align: right;
+}
+
+.calendar-year,
+.calendar-month {
+  cursor: pointer;
+}
+
+.calendar-year:hover,
+.calendar-month:hover {
+  color: #007bff;
+}
+
+.calendar-button-group {
+  text-align: right;
+}
+
+/********Calendar month*******/
+.calendar-table-header-cell {
+  width: 14%;
+}
+
+.caledar-table-day-cell {
+  -moz-transition: color 0.1s;
+  -ms-transition: color 0.1s;
+  -o-transition: color 0.1s;
+  -webkit-transition: color 0.1s;
+  transition: color 0.1s;
+  height: 100px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.caledar-table-day-cell:hover {
+  color: #007bff;
+}
+
+.caledar-table-day-cell.day-disable {
+  background: #dee2e6;
+}
+
+.calendar-day-left {
+  float: left;
+  width: 70%;
+}
+
+.calendar-day-name {
+  font-size: 14px;
+}
+
+.calendar-day-type {
+  float: right;
+  width: 30%;
+  font-size: 36px;
+  text-align: center;
+}
+
+/*************Calendar modal************/
+.calendar-modal-symbol {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.calendar-modal-name {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.calendar-modal-description {
+  font-size: 16px;
+  height: 100px;
+}

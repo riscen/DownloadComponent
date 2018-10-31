@@ -1,0 +1,139 @@
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import {
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Row,
+  Col,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from "reactstrap";
+import { DAY_TYPE } from "../../constants/util";
+import { mapDate } from "../util";
+
+//toggle closes the modal
+class CalendarModal extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      dropdownOpen: false,
+      selectedType:
+        this.props.dayType.symbol !== "" ? this.props.dayType : DAY_TYPE[Object.keys(DAY_TYPE)[0]]
+    };
+
+    this.toggle = this.toggle.bind(this);
+    this.selectType = this.selectType.bind(this);
+  }
+
+  toggle() {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen
+    });
+  }
+
+  selectType(key) {
+    this.setState({
+      selectedType: DAY_TYPE[key]
+    });
+  }
+
+  render() {
+    const detailsStyle = {
+      borderLeft: "1px solid #343a40",
+      color: "#343a40"
+    };
+    const props = this.props;
+    const weekDay = new Date(
+      mapDate({
+        month: props.month,
+        day: props.day,
+        year: props.year
+      })
+    ).getDay();
+    const filteredKeys = Object.keys(DAY_TYPE).filter(key => {
+      if ((weekDay === 0 || weekDay === 6) && DAY_TYPE[key] === DAY_TYPE.MORNING_SHIFT) return key;
+      else if (DAY_TYPE[key] !== DAY_TYPE.MORNING_SHIFT) return key;
+    });
+    const dropDownItems = filteredKeys.map(key => {
+      return (
+        <DropdownItem key={key} onClick={k => this.selectType(key)}>
+          {DAY_TYPE[key].name}
+        </DropdownItem>
+      );
+    });
+    return (
+      <Modal
+        isOpen={props.isOpen}
+        toggle={props.toggle}
+        className="calendar-modal"
+        backdrop="static"
+        size="lg"
+      >
+        <ModalHeader toggle={props.toggle}>{`Select Day Type for: ${mapDate({
+          month: props.month,
+          day: props.day,
+          year: props.year
+        })}`}</ModalHeader>
+        <ModalBody>
+          <Row>
+            <Col xs="6">
+              <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                <DropdownToggle caret>{this.state.selectedType.name}</DropdownToggle>
+                <DropdownMenu>{dropDownItems}</DropdownMenu>
+              </Dropdown>
+            </Col>
+            <Col xs="6" style={detailsStyle}>
+              <Row>
+                <Col>
+                  <div className="calendar-modal-symbol">
+                    <span>{this.state.selectedType.symbol}</span>
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <div className="calendar-modal-name">
+                    <span>{this.state.selectedType.name}</span>
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <div className="calendar-modal-description">
+                    <span>{this.state.selectedType.description}</span>
+                  </div>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="success" onClick={dayType => props.accept(this.state.selectedType)}>
+            Accept
+          </Button>{" "}
+          <Button color="danger" onClick={props.toggle}>
+            Cancel
+          </Button>
+        </ModalFooter>
+      </Modal>
+    );
+  }
+}
+
+CalendarModal.propTypes = {
+  accept: PropTypes.func,
+  day: PropTypes.any,
+  dayType: PropTypes.any,
+  month: PropTypes.any,
+  toggle: PropTypes.func,
+  weekDay: PropTypes.any,
+  year: PropTypes.any
+};
+
+export default CalendarModal;

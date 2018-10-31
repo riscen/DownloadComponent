@@ -23,11 +23,6 @@
 }
 
 .download-filter.active {
-  -moz-transition: height 0.2s;
-  -ms-transition: height 0.2s;
-  -o-transition: height 0.2s;
-  -webkit-transition: height 0.2s;
-  transition: height 0.2s;
   height: 90px;
 }
 
@@ -136,7 +131,7 @@
 }
 
 thead {
-  background: #f8f9fa;
+  background: #cdd9e6;
   color: #212529;
 }
 

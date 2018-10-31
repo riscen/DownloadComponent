@@ -10,7 +10,7 @@ class Upload extends Component {
     super(props);
 
     this.state = {
-      selectedFiles: [],
+      selectedFile: null,
       fileUploaded: false
     };
 
@@ -20,9 +20,9 @@ class Upload extends Component {
   }
 
   handleUpload() {
-    /*this.setState({
+    this.setState({
       fileUploaded: true
-    });*/
+    });
   }
 
   handleDelete() {
@@ -32,10 +32,12 @@ class Upload extends Component {
   }
 
   handleDrop(acceptedFiles) {
-    const files = acceptedFiles;
-    this.setState({
-      selectedFiles: files.map(file => {
-        return {
+    if (acceptedFiles.length > 1) {
+      alert("Only one file can be uploaded.");
+    } else {
+      const file = acceptedFiles[0];
+      this.setState({
+        selectedFile: {
           name: file.name,
           size: file.size,
           timePeriod: {
@@ -50,9 +52,9 @@ class Upload extends Component {
               year: 2018
             }
           }
-        };
-      })
-    });
+        }
+      });
+    }
   }
 
   render() {
@@ -66,40 +68,40 @@ class Upload extends Component {
       borderRadius: "5px",
       cursor: "pointer"
     };
-    const files = this.state.selectedFiles;
-    const fileRows = files.map((file, index) => {
-      return (
-        <tr key={index}>
-          <td>{file.name}</td>
-          <td>{bytesToMb(file.size, 2)}</td>
-          <td>{`${mapDate(file.timePeriod.from)} to ${mapDate(file.timePeriod.to)}`}</td>
-          <td>
-            <div className="upload-file-button-group">
-              <Button
-                outline
-                color="success"
-                size="sm"
-                style={buttonStyle}
-                disabled={this.state.fileUploaded}
-                onClick={this.handleUpload}
-              >
-                Upload
-              </Button>{" "}
-              <Button
-                outline
-                color="danger"
-                size="sm"
-                style={buttonStyle}
-                disabled={this.state.fileUploaded}
-                onClick={this.handleDelete}
-              >
-                Delete
-              </Button>
-            </div>
-          </td>
-        </tr>
+    const file = this.state.selectedFile;
+    const fileRow = file ? (
+      <tr>
+        <td>{file.name}</td>
+        <td>{bytesToMb(file.size, 2)}</td>
+        <td>{`${mapDate(file.timePeriod.from)} to ${mapDate(file.timePeriod.to)}`}</td>
+        <td>
+          <div className="upload-file-button-group">
+            <Button
+              outline
+              color="success"
+              size="sm"
+              style={buttonStyle}
+              disabled={this.state.fileUploaded}
+              onClick={this.handleUpload}
+            >
+              Upload
+            </Button>{" "}
+            <Button
+              outline
+              color="danger"
+              size="sm"
+              style={buttonStyle}
+              disabled={this.state.fileUploaded}
+              onClick={this.handleDelete}
+            >
+              Delete
+            </Button>
+          </div>
+        </td>
+      </tr>
+    ) : (
+        <tr />
       );
-    });
 
     return (
       <div className="container-fluid">
@@ -117,7 +119,7 @@ class Upload extends Component {
                     <th>Actions</th>
                   </tr>
                 </thead>
-                <tbody>{fileRows}</tbody>
+                <tbody>{fileRow}</tbody>
               </Table>
             </div>
           </Col>
