@@ -49,24 +49,15 @@ class CalendarModal extends Component {
       color: "#343a40"
     };
     const props = this.props;
-    let isWeekendDay = true,
-      weekDay;
-    for (let i = 0; i < props.days.length; i++) {
-      weekDay = new Date(
-        mapDate({
-          month: props.month,
-          day: props.days[i],
-          year: props.year
-        })
-      ).getDay();
-      if (weekDay !== 0 && weekDay !== 6) {
-        isWeekendDay = false;
-        break;
-      }
-    }
+    const weekDay = new Date(
+      mapDate({
+        month: props.month,
+        day: props.day,
+        year: props.year
+      })
+    ).getDay();
     const filteredKeys = Object.keys(DAY_TYPE).filter(key => {
-      if (isWeekendDay) return key;
-      //      if ((weekDay === 0 || weekDay === 6) && DAY_TYPE[key] === DAY_TYPE.MORNING_SHIFT) return key;
+      if ((weekDay === 0 || weekDay === 6) && DAY_TYPE[key] === DAY_TYPE.MORNING_SHIFT) return key;
       else if (DAY_TYPE[key] !== DAY_TYPE.MORNING_SHIFT) return key;
     });
     const dropDownItems = filteredKeys.map(key => {
@@ -84,15 +75,11 @@ class CalendarModal extends Component {
         backdrop="static"
         size="lg"
       >
-        <ModalHeader toggle={props.toggle}>{`Select Day Type for: ${
-          props.days.length === 1
-            ? mapDate({
-                month: props.month,
-                day: props.day,
-                year: props.year
-              })
-            : "Multiple days"
-        }`}</ModalHeader>
+        <ModalHeader toggle={props.toggle}>{`Select Day Type for: ${mapDate({
+          month: props.month,
+          day: props.day,
+          year: props.year
+        })}`}</ModalHeader>
         <ModalBody>
           <Row>
             <Col xs="6">
@@ -141,7 +128,7 @@ class CalendarModal extends Component {
 
 CalendarModal.propTypes = {
   accept: PropTypes.func,
-  days: PropTypes.any,
+  day: PropTypes.any,
   dayType: PropTypes.any,
   month: PropTypes.any,
   toggle: PropTypes.func,

@@ -25,25 +25,7 @@ class CalendarMonth extends Component {
   }
 
   selectDay(dayNum) {
-    if (this.state.keyDown === "Shift") {
-      if (this.state.selectedDays.length > 0) {
-        const min = dayNum < this.state.selectedDays[0] ? dayNum : this.state.selectedDays[0];
-        const max = (dayNum > this.state.selectedDays[0] ? dayNum : this.state.selectedDays[0]) + 1;
-        this.setState({
-          selectedDays: [...Array(max - min).keys()].map(d => d + min),
-          modalOpen: true
-        });
-      } else this.setState({ selectedDays: [dayNum] });
-    } else if (this.state.keyDown === "Control") {
-      if (this.state.selectedDays.length > 0) {
-        const idx = this.state.selectedDays.find(d => d === dayNum);
-        if (idx !== undefined)
-          this.setState({ selectedDays: this.state.selectedDays.filter(d => d !== dayNum) });
-        else this.setState({ selectedDays: [...this.state.selectedDays, dayNum] });
-      } else {
-        this.setState({ selectedDays: [...this.state.selectedDays, dayNum] });
-      }
-    } else this.setState({ selectedDays: [dayNum], modalOpen: true });
+    this.setState({ selectedDays: dayNum, modalOpen: true });
   }
 
   handleSpecialKeyPress(event) {
@@ -51,27 +33,21 @@ class CalendarMonth extends Component {
       (event.shiftKey && this.state.keyDown !== "Shift") ||
       (event.ctrlKey && this.state.keyDown !== "Control")
     ) {
+      console.log("kd", event.key);
       this.setState({
-        keyDown: event.key
+        keyDown: event.shiftKey ? event.shiftKey : event.ctrlKey
       });
     }
   }
 
   handleSpecialKeyRelease() {
-    //console.log("release");
-    if (this.state.keyDown === "Shift")
-      this.setState({
-        keyDown: undefined
-      });
-    if (this.state.keyDown === "Control")
-      this.setState({
-        modalOpen: this.state.selectedDays.length > 0,
-        keyDown: undefined
-      });
+    console.log("release");
+    if (this.state.keyDown === "Shift" || this.state.keyDown === "Control")
+      this.setState({ keyDown: undefined });
   }
 
   toggleModal() {
-    this.setState({ modalOpen: false, selectedDays: [] });
+    this.setState({ modalOpen: false });
   }
 
   getDayType(type) {
@@ -79,12 +55,8 @@ class CalendarMonth extends Component {
       month = this.state.month;
     this.setState({
       month: [...month.slice(0, selectedDay), type, ...month.slice(selectedDay + 1)]
-    });
-    for (let i = 0; i < this.state.selectedDays.length; i++) {
-      this.props.getDayType(this.state.selectedDays[i] - 1, type);
-    }*/
-    this.props.getDayType(this.state.selectedDays, type);
-    //this.props.getDayType(this.state.selectedDay - 1, type);
+    });*/
+    this.props.getDayType(this.state.selectedDay - 1, type);
     this.toggleModal();
   }
 
@@ -124,7 +96,6 @@ class CalendarMonth extends Component {
                   }
                   dayNum={j + 1}
                   dayType={this.props.monthTypes[j++]}
-                  selected={this.state.selectedDays.find(day => day === j)}
                   handleClick={this.selectDay}
                 />
               );
@@ -145,16 +116,16 @@ class CalendarMonth extends Component {
         {this.state.modalOpen ? (
           <CalendarModal
             isOpen={this.state.modalOpen}
-            days={this.state.selectedDays}
-            dayType={this.props.monthTypes[this.state.selectedDays[0] - 1]}
+            day={this.state.selectedDays}
+            dayType={this.props.monthTypes[this.state.selectedDay - 1]}
             month={this.props.month}
             year={this.props.year}
             toggle={this.toggleModal}
             accept={this.getDayType}
           />
         ) : (
-          <div />
-        )}
+            <div />
+          )}
       </React.Fragment>
     );
   }

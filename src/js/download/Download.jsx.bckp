@@ -5,8 +5,7 @@
  */
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Table, Button } from "reactstrap";
-import { Eye, ArrowDownCircle } from "react-feather";
+import { Table } from "reactstrap";
 import DownloadFilter from "./DownloadFilter";
 import { mapDate } from "../util/";
 
@@ -21,17 +20,17 @@ class Download extends Component {
       filters: {}
     };
 
-    this.seeFile = this.seeFile.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.downloadFile = this.downloadFile.bind(this);
     this.handleFilterDataChange = this.handleFilterDataChange.bind(this);
   }
 
-  seeFile(fileId) {
+  handleClick(fileId) {
     console.log("Select: ", fileId);
   }
 
-  downloadFile(fileId) {
-    console.log("Download: ", fileId);
+  downloadFile(file) {
+    console.log("Download: ", file);
   }
 
   handleFilterDataChange(filters) {
@@ -101,27 +100,22 @@ class Download extends Component {
     });
     const files = filteredFiles.map((file, index) => {
       return (
-        <tr key={file.id} className="file-download-table-row">
+        <tr
+          key={file.id}
+          className="file-download-table-row"
+          onClick={id => this.handleClick(file.id)}
+          onDoubleClick={f => this.downloadFile(file)}
+        >
           <td>{file.uploadedBy}</td>
           <td>{file.department}</td>
           <td>{`${mapDate(file.timePeriod.from)} to ${mapDate(file.timePeriod.to)}`}</td>
           <td>{file.uploadDate}</td>
-          <td>
-            <div className="button-container">
-              <Button outline color="primary" onClick={id => this.seeFile(file.id)}>
-                <Eye />
-              </Button>{" "}
-              <Button outline color="primary" onClick={id => this.downloadFile(file.id)}>
-                <ArrowDownCircle />
-              </Button>
-            </div>
-          </td>
         </tr>
       );
     });
     return (
       <div className="container-fluid">
-        <h1 className="h2">Finance Files</h1>
+        <h1 className="h2">File download</h1>
         <div className="row">
           <div className="col-sm-12 d-none d-md-block" style={marginTop}>
             <div className="download-description">
@@ -132,11 +126,10 @@ class Download extends Component {
               <Table bordered responsive>
                 <thead>
                   <tr>
-                    <th className="file-download-table-cell">Uploaded by</th>
-                    <th className="file-download-table-cell">Department</th>
-                    <th className="file-download-table-cell">Time Period</th>
-                    <th className="file-download-table-cell">Upload Date</th>
-                    <th className="file-download-table-cell">Actions</th>
+                    <th>Uploaded by</th>
+                    <th>Department</th>
+                    <th>Time Period</th>
+                    <th>Upload Date</th>
                   </tr>
                 </thead>
                 <tbody>{files}</tbody>

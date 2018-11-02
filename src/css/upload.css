@@ -18,7 +18,13 @@
 }
 
 .upload-file-props tr:hover {
+  -moz-transition: 0.1s;
+  -ms-transition: 0.1s;
+  -o-transition: 0.1s;
+  -webkit-transition: 0.1s;
+  transition: 0.1s;
   font-weight: bold;
+  color: #007bff;
 }
 
 .upload-file-name-cell {

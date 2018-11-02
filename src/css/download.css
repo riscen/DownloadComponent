@@ -124,10 +124,7 @@
 /***********************File table************************/
 .file-download-table {
   padding: 10px 0 5% 0;
-}
-
-.table-bordered {
-  width: 100%;
+  font-size: 16px;
 }
 
 thead {
@@ -135,22 +132,24 @@ thead {
   color: #212529;
 }
 
-.table-bordered tr {
-  height: 40px;
-}
-
-.table-bordered th,
-td {
-  padding: 5px;
-}
-
 .table-bordered .file-download-table-row {
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -o-transition: 0.2s;
+  -webkit-transition: 0.2s;
   transition: 0.2s;
   cursor: pointer;
 }
 
 .table-bordered .file-download-table-row:hover {
-  transition: 0.2s;
-  background: #007bff;
-  color: white;
+  font-weight: bold;
+  color: #007bff;
+}
+
+.file-download-table-cell {
+  width: 20%;
+}
+
+.button-container {
+  text-align: center;
 }

@@ -32,23 +32,29 @@ class Upload extends Component {
   }
 
   handleDrop(acceptedFiles) {
-    const files = acceptedFiles;
+    //mm/dd/yyyy
+    //const date = new Date("11/16/2018");
+    const date = new Date();
+    const day = date.getDate();
+    const month = date.getMonth();
+    const from = {
+      day: day >= 1 && day <= 15 ? 15 : 1,
+      month: day >= 1 && day <= 15 ? month - 1 : month,
+      year: date.getUTCFullYear()
+    };
+    const to = {
+      day: day >= 1 && day <= 15 ? new Date(date.getFullYear(), month, 0).getDate() : 15,
+      month: day >= 1 && day <= 15 ? month - 1 : month,
+      year: date.getUTCFullYear()
+    };
     this.setState({
-      selectedFiles: files.map(file => {
+      selectedFiles: acceptedFiles.map(file => {
         return {
           name: file.name,
           size: file.size,
           timePeriod: {
-            from: {
-              day: 1,
-              month: 11,
-              year: 2018
-            },
-            to: {
-              day: 1,
-              month: 11,
-              year: 2018
-            }
+            from: from,
+            to: to
           }
         };
       })

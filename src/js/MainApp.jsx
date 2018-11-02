@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 //import { Link } from 'react-router-dom';
 import Upload from "./upload/Upload"; //All of us
 import Download from "./download/Download"; //Raul
-import Calendar from "./calendar/Calendar";
+import Calendar from "./calendar/Calendar"; //Raul
 import Consult from "./Charts"; //Lalo
 //import Loggin from './SignInForm';//Fer
 import "../css/bootstrap.css";
@@ -102,7 +102,7 @@ class MainApp extends Component {
                   <li className="nav-item">
                     <a className="nav-link" href="#" id="aDownload" onClick={this.navBetweenTabs}>
                       <span data-feather="file"> </span>
-                      Download WSINF
+                      Finance Files
                     </a>
                   </li>
 

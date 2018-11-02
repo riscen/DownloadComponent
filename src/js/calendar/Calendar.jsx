@@ -45,15 +45,12 @@ class Calendar extends Component {
   }
 
   selectMonth(val) {
-    if (typeof val === "number") {
-      console.log("Number");
-      this.setState({
-        selectedMonth: val
-      });
-    } else
-      this.setState({
-        selectedMonth: MONTHS_LONG.findIndex(month => val.target.innerText === month)
-      });
+    this.setState({
+      selectedMonth:
+        typeof val === "number"
+          ? val
+          : MONTHS_LONG.findIndex(month => val.target.innerText === month)
+    });
   }
 
   selectYear(event) {
@@ -69,11 +66,17 @@ class Calendar extends Component {
     });
   }
 
-  getDayType(day, type) {
-    const month = this.state.month;
+  getDayType(days, type) {
+    let month = this.state.month;
+    for (let i = 0; i < days.length; i++) {
+      month = [...month.slice(0, days[i] - 1), type, ...month.slice(days[i])];
+    }
     this.setState({
-      month: [...month.slice(0, day), type, ...month.slice(day + 1)]
+      month: month
     });
+    /*this.setState({
+      month: [...month.slice(0, day), type, ...month.slice(day + 1)]
+    });*/
   }
 
   saveMonth() {
@@ -99,7 +102,7 @@ class Calendar extends Component {
     const date = new Date();
     let filterMonths;
     if (this.state.selectedYear !== date.getFullYear()) {
-      filterMonths = MONTHS_LONG.filter((month, index) => index <= 12);
+      filterMonths = MONTHS_LONG;
     } else {
       filterMonths = MONTHS_LONG.filter((month, index) => index <= date.getMonth() + 1);
     }
@@ -124,7 +127,7 @@ class Calendar extends Component {
         <div className="calendar-title">
           <div className="calendar-user-data">
             <h3>SAP ID</h3>
-            <h4>Name</h4>
+            <h4>Lastname, Name</h4>
           </div>
           <div className="calendar-time">
             <div className="calendar-year">

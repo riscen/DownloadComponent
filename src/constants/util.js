@@ -72,13 +72,13 @@ export const DAY_TYPE = {
   SUSTAINMENT: {
     symbol: "SUS",
     name: "Sustainment",
-    description: ""
+    description: "The employee is working as a backup, attending tasks with low priority."
   },
-  SECONDARY: {
+  /*SECONDARY: {
     symbol: "SEC",
     name: "Secondary",
     description: "(Not Eligible for Bonus)"
-  },
+  },*/
   TRAINING: {
     symbol: "T",
     name: "Training",
